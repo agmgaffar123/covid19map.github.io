@@ -1,0 +1,38 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+# Create a web page using R Markdown and Leaflet.
+
+# 27th April 2020
+
+## The data is taken from: https://www.kaggle.com/grebublin/coronavirus-latlon-dataset
+
+##Data plotted
+
+The map showcase the impact of covid 19 as at 12th March 2020
+
+```{r}
+setwd("C:/Users/rr111836/Desktop/Studies/Coursera/4/Map")
+data<-read.csv("Covid.csv")
+library(leaflet)
+```
+
+
+
+```{r}
+my_map <- data %>%
+        leaflet() %>%
+        addTiles("Covid as at 12th March 2020") %>% 
+        setView(lng = -85, lat = 40, zoom = 5) %>% 
+        addMarkers(popup = paste("Confirmed", data$confirmed, "<br>",
+                           "Recovered:", data$recovered, "<br>",
+                           "Death:", data$death
+                           ))%>% 
+        addCircles(weight=1,radius=sqrt(data$confirmed)*30000)
+       my_map
+
+```
+
